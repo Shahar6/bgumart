@@ -4,24 +4,37 @@ from dbtools import Dao
  
 # Data Transfer Objects:
 class Employee(object):
-    #TODO: implement
-    pass
+    def __init__(self, id, name, salary, branch):
+        self.id = id
+        self.name = name
+        self.salary = salary
+        self.branch = branch
  
 class Supplier(object):
-    #TODO: implement
-    pass
+    def __init__(self, id, name, contact_information):
+        self.id = id
+        self.name = name
+        self.contact_information = contact_information
 
 class Product(object):
-    #TODO: implement
-    pass
+    def __init__(self, id, description, price, quantity):
+        self.id = id
+        self.description = description
+        self.price = price
+        self.quantity = quantity
 
-class Branche(object):
-    #TODO: implement
-    pass
+class Branch(object):
+    def __init__(self, id, location, number_of_employees):
+        self.id = id
+        self.location = location
+        self.number_of_employees = number_of_employees
 
-class Activitie(object):
-    #TODO: implement
-    pass
+class Activity(object):
+    def __init__(self, product_id, quantity, activator_id, date):
+        self.product_id = product_id
+        self.quantity = quantity
+        self.activator_id = activator_id
+        self.date = date
  
  
 #Repository
@@ -29,7 +42,11 @@ class Repository(object):
     def __init__(self):
         self._conn = sqlite3.connect('bgumart.db')
         self._conn.text_factory = bytes
-        #TODO: complete
+        self.employees = Dao(Employee, self._conn)
+        self.suppliers = Dao(Supplier, self._conn)
+        self.products = Dao(Product, self._conn)
+        self.branches = Dao(Branch, self._conn)
+        self.activities = Dao(Activity, self._conn)
  
     def _close(self):
         self._conn.commit()
@@ -41,7 +58,7 @@ class Repository(object):
                 id              INT         PRIMARY KEY,
                 name            TEXT        NOT NULL,
                 salary          REAL        NOT NULL,
-                branche    INT REFERENCES branches(id)
+                branch    INT REFERENCES branches(id)
             );
     
             CREATE TABLE suppliers (
