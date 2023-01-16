@@ -4,23 +4,23 @@ import sys
 import os
 
 
-def add_branch(splittedline: list[str]):
-    repo.insert_branch(splittedline)
+def add_branche(splittedline: list[str]):
+    repo.branches.insert(Branche(splittedline[0], splittedline[1], splittedline[2]))
 
 
 def add_supplier(splittedline: list[str]):
-    repo.insert_supplier(splittedline)
+    repo.suppliers.insert(Supplier(splittedline[0], splittedline[1], splittedline[2]))
 
 
 def add_product(splittedline: list[str]):
-    repo.insert_product(splittedline)
+    repo.products.insert(Product(splittedline[0], splittedline[1], splittedline[2], splittedline[3]))
 
 
 def add_employee(splittedline: list[str]):
-    repo.insert_employee(splittedline)
+    repo.employees.insert(Employee(splittedline[0], splittedline[1], splittedline[2], splittedline[3]))
 
 
-adders = {"B": add_branch,
+adders = {"B": add_branche,
           "S": add_supplier,
           "P": add_product,
           "E": add_employee}

@@ -46,6 +46,11 @@ class Dao(object):
         c = self._conn.cursor()
         c.execute('SELECT * FROM {}'.format(self._table_name))
         return orm(c, self._dto_type)
+
+    def find_all_by(self, sort):
+        c = self._conn.cursor()
+        c.execute('SELECT * FROM {} ORDER BY {}'.format(self._table_name, sort))
+        return orm(c, self._dto_type)
     
     def find(self, **keyvals):
         column_names = keyvals.keys()
