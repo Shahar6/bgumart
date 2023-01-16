@@ -8,7 +8,7 @@ def main(args: list[str]):
     with open(inputfilename) as inputfile:
         for line in inputfile:
             splittedline: list[str] = line.strip().split(", ")
-            if  int(splittedline[1]) > 0:
+            if int(splittedline[1]) > 0:
                 repo.buy(splittedline)
             else:
                 repo.sell(splittedline)

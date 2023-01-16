@@ -69,13 +69,15 @@ class Repository(object):
 
     def buy(self, splittedline: list[str]):
         self.activities.insert(Activitie(splittedline[0], splittedline[1], splittedline[2], splittedline[3]))
+        self._conn.cursor().execute("UPDATE products SET quantity = quantity + ? WHERE products.id = ?",
+                                    [splittedline[1], splittedline[0]])
 
     def sell(self, splittedline: list[str]):
         c = self._conn.cursor()
         supply = c.execute("SELECT products.quantity FROM products WHERE products.id = ?", [splittedline[0]]).fetchone()
-        if (int(supply[0]) >= int(splittedline[1])):
+        if (int(supply[0]) >= abs(int(splittedline[1]))):
             self.activities.insert(Activitie(splittedline[0], splittedline[1], splittedline[2], splittedline[3]))
-            c.execute("UPDATE products SET quantity = quantity - ? WHERE products.id = ?",
+            c.execute("UPDATE products SET quantity = quantity + ? WHERE products.id = ?",
                       [splittedline[1], splittedline[0]])
 
     def create_tables(self):
